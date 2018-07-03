@@ -1,0 +1,45 @@
+<div class="container">
+
+<h1>Hi <%= current_user.first_name%> <%= current_user.last_name%>!</h1>
+<p><p>
+<p><p>
+
+<h3>All the songs in our current hub</h3>
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th scope="col">Artist</th>
+            <th scope="col">Title</th>
+            <th scope="col">No. of Times the Song has been Added</th>
+            <th scope="col">Add to Playlist</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @songs.each do |thing| %>
+            <tr>
+                <td><%= thing.artist %></td>
+                <td><a href="/songs/<%= thing.id %>"><%= thing.title %></a></td>
+                <td><%= Add.where(song_id: thing.id).count %></td>
+                <td><a href="/songs/add/<%= thing.id %>">Add</a></td>
+            </tr>
+        <% end %>
+    </tbody>
+    
+</table>
+
+<h5>Add a Song:</h5>
+    <form action="/songs/new" method="post">
+        <div class="form-group">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+            <label for="song[title]">Title</label>
+            <input type="text" class="form-control" name="song[title]">
+        </div>
+        <div class="form-group">
+            <label for="song[artist]">Artist</label>
+            <input type="text" class="form-control" name="song[artist]">
+        </div>
+        <input type="submit" class="btn btn-primary" value="Add Song">
+    </form>
+
+</div>

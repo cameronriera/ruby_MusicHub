@@ -1,0 +1,26 @@
+<div class="container">
+
+<h4><%= @user.first_name %> <%= @user.last_name %>'s Playlist</h3>
+
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th scope="col">Artist</th>
+            <th scope="col">Title</th>
+            <th scope="col">Times Added</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @usersongs.each do |thing| %>
+            <tr>
+                <td> <%= Song.find(thing.song_id).artist %></td>
+                <td> <%= Song.find(thing.song_id).title %></td>
+                <td><%= Add.where(user_id: thing.user_id).where(song_id: thing.song_id).count %></td>
+            </tr>
+        <% end %>
+    </tbody>
+    
+</table>
+
+</div>
